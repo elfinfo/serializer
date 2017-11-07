@@ -138,17 +138,17 @@ class JsonSerializationVisitor extends GenericSerializationVisitor
 
     public function endVisitingObject(ClassMetadata $metadata, $data, array $type, Context $context)
     {
-        $rs = $this->data;
-        $this->data = $this->dataStack->pop();
+        $rs = parent::endVisitingObject($metadata, $data, $type, $context);
+        //$this->data = $this->dataStack->pop();
 
-        // Force JSON output to "{}" instead of "[]" if it contains either no properties or all properties are null.
-        if (empty($rs)) {
-            $rs = new \ArrayObject();
-        }
-
-        if ($this->root instanceof \stdClass && 0 === $this->dataStack->count()) {
-            $this->root = $rs;
-        }
+//        // Force JSON output to "{}" instead of "[]" if it contains either no properties or all properties are null.
+//        if (empty($rs)) {
+//            $rs = new \ArrayObject();
+//        }
+//
+//        if ($this->root instanceof \stdClass && 0 === $this->dataStack->count()) {
+//            $this->root = $rs;
+//        }
 
         return $rs;
     }
